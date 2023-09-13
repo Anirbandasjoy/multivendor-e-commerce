@@ -1,21 +1,36 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { BiLogoFacebookCircle, BiLogoGithub, BiLogoGoogle } from 'react-icons/bi';
 import { AiFillTwitterCircle } from 'react-icons/ai';
+import { Link } from 'react-router-dom';
 
 const Login = () => {
+    const [state, setState] = useState({
+        email: "",
+        password: ""
+    })
+    const handleChange = (e) => [
+        setState({
+            ...state,
+            [e.target.name]: e.target.value
+        })
+    ];
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log(state)
+    }
     return (
         <div className="relative flex flex-col justify-center h-screen overflow-y-scroll">
             <div className="w-full p-6 m-auto bg-white rounded-md shadow-md ring-2 ring-gray-800/50 lg:max-w-xl">
                 <h1 className="text-3xl font-semibold text-center text-gray-700 mb-6">Wellcome to e-commerce</h1>
-                <form className="space-y-4">
+                <form className="space-y-4" onSubmit={handleSubmit}>
 
                     <div>
 
-                        <input type="text" placeholder="Email Address" className="w-full input input-bordered" />
+                        <input name='email' onChange={handleChange} value={state.email} type="text" placeholder="Email Address" className="w-full input input-bordered" />
                     </div>
                     <div>
 
-                        <input type="password" placeholder="Enter Password" className="w-full input input-bordered" />
+                        <input name='password' onChange={handleChange} value={state.password} type="password" placeholder="Enter Password" className="w-full input input-bordered" />
                     </div>
                     <div className='flex gap-2'>
                         <input type="checkbox" name="checkbox" id="checkbox" className='w-5 h-5' />
@@ -25,7 +40,7 @@ const Login = () => {
                         <button className="btn btn-block text-white capitalize  bg-[#1877f2] hover:bg-[#1877f2]">Log in</button>
                     </div>
                     <span>Already have an account ?
-                        <a href="#" className="text-blue-600 hover:text-blue-800 hover:underline">SignUp</a></span>
+                        <Link to="/registation" className="text-blue-600 hover:text-blue-800 hover:underline">SignUp</Link></span>
                 </form>
                 <div className="flex items-center w-full my-4">
                     <hr className="w-full" />
